@@ -7,29 +7,31 @@ import javax.activation.*;
 
 class Service {
 
-    void sendMail(User user, String recipient, String Subject, String content) {
-        String to = "abcd@gmail.com";
+    void sendMail(User user, String recipient, String subject, String content) {
 
-        String from = "web@gmail.com";
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
 
-        String host = "localhost";
-
-        Properties properties = System.getProperties();
-
-        properties.setProperty("mail.smtp.host", host);
-
-        Session session = Session.getDefaultInstance(properties);
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user.getUsername(), user.getPassword());
+                    }
+                });
 
         try {
             MimeMessage message = new MimeMessage(session);
 
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(user.getUsername()));
 
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
-            message.setSubject("This is the Subject Line!");
+            message.setSubject(subject);
 
-            message.setContent("<h1>This is actual message</h1>", "text/html");
+            message.setContent(content, "text/html");
 
             Transport.send(message);
             System.out.println("Sent message successfully....");

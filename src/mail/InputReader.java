@@ -16,7 +16,7 @@ class InputReader {
         System.out.println("Bitte geben Sie ihre gmail-adresse an:");
         boolean validUsername = false;
         while (!validUsername) {
-            username = scanner.next();
+            username = scanner.nextLine();
             if (username.contains("@")) {
                 validUsername = true;
             } else {
@@ -26,7 +26,7 @@ class InputReader {
         }
 
         System.out.println("Nun geben Sie ihr Passwort ein:");
-        password = scanner.next();
+        password = scanner.nextLine();
         return new User(username, password);
     }
 
@@ -35,7 +35,7 @@ class InputReader {
         String recipient = "";
         boolean validAddress = false;
         while (!validAddress) {
-            recipient = scanner.next();
+            recipient = scanner.nextLine();
             if (recipient.contains("@")) {
                 validAddress = true;
             } else {
@@ -48,27 +48,28 @@ class InputReader {
 
     String getSubject() {
         System.out.println("Bitte geben Sie den der Mail Betreff an.");
-        return scanner.next();
+        String subject = scanner.nextLine();
+        return subject;
     }
 
     String getContent() {
         builder = new HTMLBuilder();
         String content = "";
 
-        System.out.println("Geben Sie ein HTML-Element an, hier einige Beispiele:");
-        System.out.println("h1 : Titel");
-        System.out.println("h2 : Untertitel");
-        System.out.println("p : Fliesstext");
-        System.out.println("\nsend : die Mail versenden");
-
         boolean send = false;
         while (!send) {
-            String element = scanner.next();
+            System.out.println("Geben Sie ein HTML-Element an, hier einige Beispiele:");
+            System.out.println("h1 : Titel");
+            System.out.println("h2 : Untertitel");
+            System.out.println("p : Fliesstext");
+            System.out.println("\nsend : die Mail versenden");
+
+            String element = scanner.nextLine();
             if(element.equals("send")) {
                 send = true;
-            } else {
+            } else if(element.equals("h1") || element.equals("h2") || element.equals("p")) {
                 System.out.println("Geben Sie den Inhalt des Elements an:");
-                String elementContent = scanner.next();
+                String elementContent = scanner.nextLine();
                 content = content + builder.getHTMLFromInput(element, elementContent);
             }
         }
