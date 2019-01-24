@@ -2,7 +2,6 @@ package mail;
 
 class Controller {
 
-    private HTMLBuilder builder;
     private Service service;
     private InputReader inputReader;
 
@@ -12,7 +11,6 @@ class Controller {
     private String content;
 
     Controller() {
-        builder = new HTMLBuilder();
         service = new Service();
         inputReader = new InputReader();
     }

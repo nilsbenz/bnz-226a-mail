@@ -6,6 +6,5 @@ class HTMLBuilder {
 
     String getHTMLFromInput(String element, String content) {
         return "<" + element + ">" + content + "</" + element + ">";
-
     }
 }

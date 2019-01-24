@@ -1,12 +1,16 @@
 package mail;
 
-import java.io.Console;
 import java.util.Scanner;
 
 class InputReader {
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private HTMLBuilder builder;
+
+    InputReader() {
+        this.scanner = new Scanner(System.in);
+        this.builder = new HTMLBuilder();
+    }
 
     User getCredentials() {
         String username = "";
@@ -53,7 +57,6 @@ class InputReader {
     }
 
     String getContent() {
-        builder = new HTMLBuilder();
         String content = "";
 
         boolean send = false;
